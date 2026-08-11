@@ -13,7 +13,7 @@ _**Heaven’s Light is Our Guide**_
   ## **Rajshahi University of Engineering and Technology** <br> 
   ### **Department of Electrical & Computer Engineering**
   ### **Lab Reports**<br>
-  **Course Name:** Computer Programming Sessional<br>
+  **Course Name:** Digital Techniques Sessional<br>
   **Course Code: ECE 2112**
   <br>
   
@@ -48,9 +48,9 @@ _**Heaven’s Light is Our Guide**_
 ## INDEX:
 
 | Assignment No. | Title | Link |
-| :---: | :---: | :---: |  :---: |
-| 01 | Basic Problem Solving | [Lab 01]()
-| 02 | Basic Pattern Printing | [Lab 02]()
+| :---: | :---: | :---: |
+| 01 | Basic Problem Solving | [Lab 01](https://github.com/Araf773/ECE-2112/blob/main/Reports/Lab_1.md)
+| 02 | Basic Pattern Printing | [Lab 02](https://github.com/Araf773/ECE-2112/blob/main/Reports/Lab_2.md)
 
 
 </div> 
