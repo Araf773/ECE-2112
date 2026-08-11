@@ -14,8 +14,7 @@ _**Heaven’s Light is Our Guide**_
   ### **Department of Electrical & Computer Engineering**
   ### **Lab Reports**<br>
   **Course Name:** Digital Techniques Sessional<br>
-  **Course Code: ECE 2112**
-  <br>
+  **Course Code:** ECE 2112 <br>
   
 </div>
 <br>
