@@ -2,28 +2,42 @@
 
 A collection of fundamental digital logic circuits implemented and simulated to demonstrate core concepts of digital electronics — including universal gate derivations (NAND/NOR), a Full Adder, and an 8-Bit BCD circuit.
 
+---
 
 ## All Fundamental Logic Gates using NOR Gate
 
-The **NOR gate** is a universal gate, meaning any other logic gate (NOT, AND, OR, NAND, XOR, XNOR) can be constructed using only NOR gates. This circuit demonstrates how each fundamental gate is derived using combinations of NOR gates alone.
+The **NOR gate** is a universal gate, meaning any other logic gate can be constructed using only NOR gates. This circuit demonstrates three separate derivations — **NOT**, **OR**, and **AND** — built entirely from NOR gates.
 
 ### Description
 
-- **NOT Gate:** Formed by connecting both inputs of a NOR gate together.
-- **OR Gate:** Formed by inverting the output of a NOR gate.
-- **AND Gate:** Formed by inverting the inputs before feeding them into a NOR gate.
-- **NAND Gate:** Formed by inverting the output of the AND (NOR-derived) construction.
-- **XOR Gate:** Formed using a combination of multiple NOR gates.
-- **XNOR Gate:** Formed by inverting the output of the XOR (NOR-derived) construction.
+- **NOT Gate:** Formed by connecting both inputs of a single NOR gate together, so it acts as an inverter.
+- **OR Gate:** Formed by feeding two NOR gates in cascade — the first NOR gate combines A and B, and the second NOR gate (used as a NOT) inverts that result back to a plain OR.
+- **AND Gate:** Formed using De Morgan's construction — each input is first inverted by its own NOR-based NOT gate, and the inverted signals are then combined by a final NOR gate to produce the AND output.
 
-### Truth Table (Basic NOR Gate)
+### Truth Table 1 — NOT Gate (from NOR)
 
-| A | B | Output (A NOR B) |
+| A | Output (NOT A) |
+|---|-----------------|
+| 0 | 1               |
+| 1 | 0               |
+
+### Truth Table 2 — OR Gate (from NOR)
+
+| A | B | Output (A OR B) |
+|---|---|------------------|
+| 0 | 0 | 0                |
+| 0 | 1 | 1                |
+| 1 | 0 | 1                |
+| 1 | 1 | 1                |
+
+### Truth Table 3 — AND Gate (from NOR)
+
+| A | B | Output (A AND B) |
 |---|---|-------------------|
-| 0 | 0 | 1                 |
+| 0 | 0 | 0                 |
 | 0 | 1 | 0                 |
 | 1 | 0 | 0                 |
-| 1 | 1 | 0                 |
+| 1 | 1 | 1                 |
 
 ### Circuit Diagram
 
@@ -33,25 +47,38 @@ The **NOR gate** is a universal gate, meaning any other logic gate (NOT, AND, OR
 
 ## All Fundamental Logic Gates using NAND Gate
 
-The **NAND gate** is also a universal gate. Similar to the NOR-based approach, every fundamental logic gate can be constructed purely using NAND gates.
+The **NAND gate** is also a universal gate. Similar to the NOR-based approach, this circuit demonstrates three separate derivations — **AND**, **OR**, and **NOT** — built entirely from NAND gates.
 
 ### Description
 
-- **NOT Gate:** Formed by connecting both inputs of a NAND gate together.
-- **AND Gate:** Formed by inverting the output of a NAND gate.
-- **OR Gate:** Formed by inverting the inputs before feeding them into a NAND gate.
-- **NOR Gate:** Formed by inverting the output of the OR (NAND-derived) construction.
-- **XOR Gate:** Formed using a combination of multiple NAND gates.
-- **XNOR Gate:** Formed by inverting the output of the XOR (NAND-derived) construction.
+- **AND Gate:** Formed by cascading two NAND gates — the first NAND combines A and B, and the second NAND (used as a NOT) inverts that result back to a plain AND.
+- **OR Gate:** Formed using De Morgan's construction — each input is first inverted by its own NAND-based NOT gate, and the inverted signals are then combined by a final NAND gate to produce the OR output.
+- **NOT Gate:** Formed by connecting both inputs of a single NAND gate together, so it acts as an inverter.
 
-### Truth Table (Basic NAND Gate)
+### Truth Table 1 — AND Gate (from NAND)
 
-| A | B | Output (A NAND B) |
-|---|---|--------------------|
-| 0 | 0 | 1                  |
-| 0 | 1 | 1                  |
-| 1 | 0 | 1                  |
-| 1 | 1 | 0                  |
+| A | B | Output (A AND B) |
+|---|---|-------------------|
+| 0 | 0 | 0                 |
+| 0 | 1 | 0                 |
+| 1 | 0 | 0                 |
+| 1 | 1 | 1                 |
+
+### Truth Table 2 — OR Gate (from NAND)
+
+| A | B | Output (A OR B) |
+|---|---|------------------|
+| 0 | 0 | 0                |
+| 0 | 1 | 1                |
+| 1 | 0 | 1                |
+| 1 | 1 | 1                |
+
+### Truth Table 3 — NOT Gate (from NAND)
+
+| A | Output (NOT A) |
+|---|-----------------|
+| 0 | 1               |
+| 1 | 0               |
 
 ### Circuit Diagram
 
@@ -61,27 +88,44 @@ The **NAND gate** is also a universal gate. Similar to the NOR-based approach, e
 
 ## Full Adder
 
-A **Full Adder** is a combinational circuit that performs the addition of three binary bits: two significant bits (A and B) and a carry-in bit (Cin) from a previous addition stage. It produces two outputs: the **Sum** and the **Carry-out (Cout)**.
+A **Full Adder** is a combinational circuit that performs the addition of three binary bits: two significant bits (A and B) and a carry-in bit (Cin) from a previous addition stage. It produces two outputs: the **Sum** and the **Carry-out (Cout)**. The diagram shows the Full Adder implemented in two ways: using a **built-in Adder component** (with Cin/Cout), and using **two cascaded Half Adders** built from XOR/AND/OR gates.
 
 ### Description
 
-- Takes **three inputs**: A, B, and Cin (carry-in).
-- Produces **two outputs**: Sum and Cout (carry-out).
-- Built using two Half Adders and an OR gate, or directly using AND, OR, and XOR gates.
-- Used in multi-bit binary adders by cascading multiple Full Adder circuits together.
+- **Built-in Full Adder block:** Takes A, B, and Cin as inputs, and directly outputs Sum and Cout.
+- **Half Adder 1:** Takes inputs A and B, and produces an intermediate Sum (A XOR B) and an intermediate Carry (A AND B).
+- **Half Adder 2 + OR stage:** Takes the intermediate Sum from Half Adder 1 along with Cin to produce the final Sum, while the two intermediate carries are combined with an OR gate to produce the final Cout.
 
-### Truth Table
+### Truth Table 1 — Half Adder 1 (A, B)
 
-| A | B | Cin | Sum | Cout |
-|---|---|-----|-----|------|
-| 0 | 0 | 0   | 0   | 0    |
-| 0 | 0 | 1   | 1   | 0    |
-| 0 | 1 | 0   | 1   | 0    |
-| 0 | 1 | 1   | 0   | 1    |
-| 1 | 0 | 0   | 1   | 0    |
-| 1 | 0 | 1   | 0   | 1    |
-| 1 | 1 | 0   | 0   | 1    |
-| 1 | 1 | 1   | 1   | 1    |
+| A | B | Sum1 (A XOR B) | Carry1 (A AND B) |
+|---|---|----------------|-------------------|
+| 0 | 0 | 0              | 0                 |
+| 0 | 1 | 1              | 0                 |
+| 1 | 0 | 1              | 0                 |
+| 1 | 1 | 0              | 1                 |
+
+### Truth Table 2 — Half Adder 2 (Sum1, Cin)
+
+| Sum1 | Cin | Sum (Sum1 XOR Cin) | Carry2 (Sum1 AND Cin) |
+|------|-----|---------------------|-------------------------|
+| 0    | 0   | 0                   | 0                        |
+| 0    | 1   | 1                   | 0                        |
+| 1    | 0   | 1                   | 0                        |
+| 1    | 1   | 0                   | 1                        |
+
+### Truth Table 3 — Final Full Adder (A, B, Cin)
+
+| A | B | Cin | Sum | Cout (Carry1 OR Carry2) |
+|---|---|-----|-----|--------------------------|
+| 0 | 0 | 0   | 0   | 0                        |
+| 0 | 0 | 1   | 1   | 0                        |
+| 0 | 1 | 0   | 1   | 0                        |
+| 0 | 1 | 1   | 0   | 1                        |
+| 1 | 0 | 0   | 1   | 0                        |
+| 1 | 0 | 1   | 0   | 1                        |
+| 1 | 1 | 0   | 0   | 1                        |
+| 1 | 1 | 1   | 1   | 1                        |
 
 ### Circuit Diagram
 
