@@ -164,7 +164,3 @@ This circuit converts an **8-bit binary input** into its equivalent **BCD (Binar
 ## Tools Used
 
 - Logic circuit simulation software (Logisim)
-
-## 📄 License
-
-This project is open source and available for educational use.
