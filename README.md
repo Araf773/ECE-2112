@@ -48,8 +48,8 @@ _**Heaven’s Light is Our Guide**_
 
 | Assignment No. | Title | Link |
 | :---: | :---: | :---: |
-| 01 | Basic Problem Solving | [Lab 01](https://github.com/Araf773/ECE-2112/blob/main/Reports/Lab_1.md)
-| 02 | Basic Pattern Printing | [Lab 02](https://github.com/Araf773/ECE-2112/blob/main/Reports/Lab_2.md)
+| 01 | Digital Logic Gates & Circuits| [Lab 01](https://github.com/Araf773/ECE-2112/blob/main/Reports/Lab_1.md)
+| 02 | Karnaugh Map and Verification Using Logic Circuit | [Lab 02](https://github.com/Araf773/ECE-2112/blob/main/Reports/Lab_2.md)
 
 
 </div> 
