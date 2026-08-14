@@ -1,0 +1,388 @@
+\documentclass[12pt]{article}
+
+% ===================== PACKAGES =====================
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{lastpage}
+
+% ===================== PAGE STYLE =====================
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{ECE 2112: DT Sessional}
+\rhead{Lab Report 2}
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+
+% ===================== CODE LISTING STYLE =====================
+\definecolor{codebg}{rgb}{0.95,0.95,0.95}
+\definecolor{codegreen}{rgb}{0,0.5,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+
+\lstdefinestyle{cppstyle}{
+    backgroundcolor=\color{codebg},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=none,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    language=C++
+}
+\lstset{style=cppstyle}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{Problem \thesection:}{0.5em}{}
+
+% ===================== DOCUMENT =====================
+\begin{document}
+
+% ---------- TITLE PAGE ----------
+\begin{titlepage}
+    \centering
+    \vspace*{0.5cm}
+    {\itshape Heaven's Light Is Our Guide \par}
+    \vspace{0.3cm}
+    {\Large \bfseries Rajshahi University of Engineering \& Technology \par}
+    \vspace{1cm}
+
+    \includegraphics[width=4cm]{LOGO.png}
+    \vspace{1cm} % placeholder space for university logo
+
+    {\Large \underline{\bfseries Lab Report 02} \par}
+    \vspace{1cm}
+
+    {\large \textbf{Course Title:} Digital Techniques Sessional \par}
+    \vspace{0.3cm}
+    {\large \textbf{Course No:} ECE 2112 \par}
+    \vspace{0.3cm}
+    {\large \textbf{Report Title:} Simplification of Boolean Expressions Using Boolean Algebra and Karnaugh Map, and Verification Using Logic Circuit Simulation \par}
+
+    \vspace{1cm}
+    {\large \textbf{Date of Submission:} 3 August, 2026 \par}
+
+    \vspace{2cm}
+
+    \noindent
+    \begin{tabularx}{\textwidth}{X X}
+        \toprule
+        \textbf{Submitted By} & \textbf{Submitted To} \\
+        \midrule
+        Md. Sadikin Naser Araf & MST. Mazeda Noor Tasnim \\
+        Roll: 2410007 & Lecturer \\
+        Department of Electrical \& & Department of Electrical \& Computer \\
+        Computer Engineering & Engineering, RUET \\
+        \bottomrule
+    \end{tabularx}
+
+\end{titlepage}
+
+% ===================== PROBLEM 1 =====================
+\section{Boolean Simplification}
+
+\subsection*{Problem Definition}
+Simplify the Boolean expression $F(A,B,C) = A'BC + AB'C + ABC' + ABC$ using Boolean algebra and the Karnaugh map, and verify both the original and simplified circuits through logic simulation.
+
+\subsection*{Objective}
+To reduce a three-variable sum-of-minterms expression to its minimal sum-of-products form, to confirm this reduction with a Karnaugh map, and to check that the original and simplified circuits behave identically by building both in Logisim.
+
+\subsection*{Algebraic Simplification}
+\begin{align*}
+F(A,B,C) &= A'BC + AB'C + ABC' + ABC \\
+&= A'BC + ABC + AB'C + ABC + ABC' + ABC \\
+&= BC(A' + A) + AC(B' + B) + AB(C' + C) \\
+&= BC + AC + AB \\
+&= AB + AC + BC
+\end{align*}
+
+\subsection*{Truth Table}
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc|c}
+\toprule
+A & B & C & $F = AB + AC + BC$ \\
+\midrule
+0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 1 & 1 & 1 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 1 & 1 \\
+1 & 1 & 0 & 1 \\
+1 & 1 & 1 & 1 \\
+\bottomrule
+\end{tabular}
+\caption{Truth table for $F = AB + AC + BC$}
+\end{table}
+
+\subsection*{Karnaugh Map}
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cccc}
+ & \multicolumn{4}{c}{$BC$} \\
+$A$ & 00 & 01 & 11 & 10 \\
+\hline
+0 & 0 & 0 & 1 & 0 \\
+1 & 0 & 1 & 1 & 1 \\
+\end{tabular}
+\caption{K-map for $F(A,B,C) = A'BC + AB'C + ABC' + ABC$}
+\end{table}
+
+Three pairs of adjacent 1-cells can be grouped: the pair at $BC = 11$ across both rows gives $BC$; the pair where $A = 1$ and $C = 1$ (columns $BC = 01, 11$) gives $AC$; and the pair where $A = 1$ and $B = 1$ ($BC = 11, 10$) gives $AB$. Together these three groups produce the minimized expression $F = AB + AC + BC$, which agrees with the algebraic derivation.
+
+\subsection*{Circuit Diagram}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{prob1.png}
+
+\caption{Original circuit (four 3-input AND gates and a 3-input OR gate realizing $A'BC + AB'C + ABC' + ABC$) alongside the simplified circuit (three 2-input AND gates and an OR gate realizing $AB + AC + BC$), both simulated in Logisim}
+\end{figure}
+
+\subsection*{Discussion}
+The original circuit implements the expression exactly as written, needing four 3-input AND gates (one per product term) plus inverters to generate $A'$, $B'$, and $C'$ where required, followed by a 3-input OR gate. The simplified circuit realizes $AB + AC + BC$ with only three 2-input AND gates and a single OR gate, and requires no inverters at all. Both versions were tested with identical input combinations in Logisim, and their outputs matched in every case, confirming that the algebraic and Karnaugh-map reductions are valid. The simplified design is clearly more efficient, using fewer gates, fewer total gate inputs, and eliminating inverters entirely.
+
+\subsection*{Conclusion}
+The expression $F = A'BC + AB'C + ABC' + ABC$ was successfully reduced to $F = AB + AC + BC$ using Boolean algebra and confirmed with a Karnaugh map. Logisim simulation of both the original and simplified circuits produced matching outputs across all input combinations, verifying the correctness of the simplification.
+
+\vspace{2cm}
+
+% ===================== PROBLEM 2 =====================
+\section{Absorption Law}
+
+\subsection*{Problem Definition}
+Simplify the Boolean expression $F(A,B,C) = A(A+B)(A+B+C)$ using Boolean algebra and the Karnaugh map, and verify both the original and simplified circuits through logic simulation.
+
+\subsection*{Objective}
+To reduce a three-variable product-of-sums-style expression to its simplest form, to confirm this reduction with a Karnaugh map, and to verify in Logisim that the original and simplified circuits are equivalent.
+
+\subsection*{Algebraic Simplification}
+\begin{align*}
+F(A,B,C) &= A(A+B)(A+B+C) \\
+&= (A + AB)(A+B+C) \\
+&= A(A+B+C) + AB(A+B+C) \\
+&= A + AB + AC + AB + AB + ABC \\
+&= A + AB + AC + ABC \\
+&= A(1 + B + C + BC) \\
+&= A
+\end{align*}
+
+\subsection*{Truth Table}
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc|c}
+\toprule
+A & B & C & $F = A$ \\
+\midrule
+0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 1 & 1 & 0 \\
+1 & 0 & 0 & 1 \\
+1 & 0 & 1 & 1 \\
+1 & 1 & 0 & 1 \\
+1 & 1 & 1 & 1 \\
+\bottomrule
+\end{tabular}
+\caption{Truth table for $F = A$}
+\end{table}
+
+\subsection*{Karnaugh Map}
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cccc}
+ & \multicolumn{4}{c}{$BC$} \\
+$A$ & 00 & 01 & 11 & 10 \\
+\hline
+0 & 0 & 0 & 0 & 0 \\
+1 & 1 & 1 & 1 & 1 \\
+\end{tabular}
+\caption{K-map for $F(A,B,C) = A(A+B)(A+B+C)$}
+\end{table}
+
+All four cells in the $A = 1$ row are 1, while the entire $A = 0$ row is 0. These four adjacent cells form a single group spanning the whole row, eliminating both $B$ and $C$ and leaving only $F = A$, exactly matching the algebraic result.
+
+\subsection*{Circuit Diagram}
+\begin{figure}[H]
+\centering
+
+\includegraphics[width=0.95\textwidth]{prob2.png}
+
+\caption{Original circuit (two OR gates realizing $A+B$ and $A+B+C$, combined with $A$ through an AND gate) and simplified circuit (a direct wire connection representing $F = A$), simulated in Logisim}
+\end{figure}
+
+\subsection*{Discussion}
+The original circuit builds $A+B$ using one OR gate, extends it to $A+B+C$ with a second OR gate, and ANDs both intermediate results with $A$ itself. Since $A$ is common to every term, all higher-order terms are absorbed and the entire network collapses to the single literal $A$, so the simplified circuit is nothing more than a direct wire from input $A$ to the output, with no logic gates involved. This is an example of the absorption law $A + AB = A$ applied twice in succession. Testing both circuits in Logisim across all combinations of $A$, $B$, and $C$ showed that the output always equals $A$ regardless of $B$ and $C$, confirming the simplification.
+
+\subsection*{Conclusion}
+The expression $F = A(A+B)(A+B+C)$ was shown to reduce to $F = A$ through repeated application of the absorption law, a result confirmed by both the Karnaugh map and Logisim simulation, which demonstrated that $B$ and $C$ have no effect whatsoever on the output.
+
+\vspace{2cm}
+% ===================== PROBLEM 3 =====================
+\section{De Morgan's Theorem}
+
+\subsection*{Problem Definition}
+Simplify the Boolean expression $F(A,B,C) = (A + (BC)')'(AB + ABC)$ using Boolean algebra and the Karnaugh map, and verify both the original and simplified circuits through logic simulation.
+
+\subsection*{Objective}
+To reduce a mixed AND-OR-complement expression using De Morgan's theorem and Boolean algebra, to confirm the result with a Karnaugh map, and to verify in Logisim that the simplified circuit behaves as a constant.
+
+\subsection*{Algebraic Simplification}
+\begin{align*}
+F(A,B,C) &= (A + (BC)')'(AB + ABC) \\
+&= A' \cdot BC \cdot (AB + ABC) \quad \text{(De Morgan's theorem)} \\
+&= A'BC \cdot AB(1+C) \\
+&= A'BC \cdot AB \\
+&= (AA')\,BC\,B \\
+&= 0
+\end{align*}
+
+\subsection*{Truth Table}
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc|c}
+\toprule
+A & B & C & $F = 0$ \\
+\midrule
+0 & 0 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 1 & 1 & 0 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 1 & 0 \\
+1 & 1 & 0 & 0 \\
+1 & 1 & 1 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Truth table for $F = 0$}
+\end{table}
+
+\subsection*{Karnaugh Map}
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cccc}
+ & \multicolumn{4}{c}{$BC$} \\
+$A$ & 00 & 01 & 11 & 10 \\
+\hline
+0 & 0 & 0 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 \\
+\end{tabular}
+\caption{K-map for $F(A,B,C) = (A+(BC)')'(AB+ABC)$}
+\end{table}
+
+Every cell of the map contains a 0, so there are no 1-cells available for grouping. A Karnaugh map with no populated cells represents the constant function $F = 0$, confirming the algebraic result.
+
+
+
+
+\subsection*{Circuit Diagram}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{prob3.png}
+
+\caption{Original circuit realizing $(A+(BC)')'(AB+ABC)$ using NAND-type and OR/AND stages, and simplified circuit showing the output permanently held at logic 0, simulated in Logisim}
+\end{figure}
+
+\subsection*{Discussion}
+Applying De Morgan's theorem to $(A+(BC)')'$ converts it into $A' \cdot BC$, after which the second factor $AB + ABC$ simplifies to $AB$ by absorption ($AB + ABC = AB(1+C) = AB$). Multiplying $A'BC$ by $AB$ introduces the term $A \cdot A'$, which is always 0, forcing the entire expression to 0 regardless of the values of $A$, $B$, and $C$. This was confirmed in Logisim by cycling through all eight input combinations on the original circuit and observing that the output never leaves logic 0, exactly as predicted by the all-zero Karnaugh map.
+
+\subsection*{Conclusion}
+The expression $F = (A+(BC)')'(AB+ABC)$ was shown to be identically zero for every input combination. This was verified algebraically, confirmed by an empty Karnaugh map, and validated through Logisim simulation, which produced a constant logic-0 output regardless of $A$, $B$, and $C$.
+
+\vspace{2cm}
+
+% ===================== PROBLEM 4 =====================
+\section{Two-Variable Reduction}
+
+\subsection*{Problem Definition}
+Simplify the Boolean expression $F(A,B) = (B'(A+B) + (A+B)(A+B'))B'$ using Boolean algebra and the Karnaugh map, and verify both the original and simplified circuits through logic simulation.
+
+\subsection*{Objective}
+To reduce a two-variable expression built from nested OR and AND terms to its minimal form, to confirm this reduction with a Karnaugh map, and to verify the equivalence of the original and simplified circuits in Logisim.
+
+\subsection*{Algebraic Simplification}
+\begin{align*}
+F(A,B) &= (B'(A+B) + (A+B)(A+B'))B' \\
+&= (AB' + BB' + AA + AB' + AB' + BB')B' \\
+&= (A + AB' + AB' + AB')B' \\
+&= A(1 + B' + B' + B')\,B' \\
+&= AB'
+\end{align*}
+
+\subsection*{Truth Table}
+\begin{table}[H]
+\centering
+\begin{tabular}{cc|c}
+\toprule
+A & B & $F = AB'$ \\
+\midrule
+0 & 0 & 0 \\
+0 & 1 & 0 \\
+1 & 0 & 1 \\
+1 & 1 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Truth table for $F = AB'$}
+\end{table}
+
+\subsection*{Karnaugh Map}
+\begin{table}[H]
+\centering
+\begin{tabular}{c|cc}
+ & \multicolumn{2}{c}{$B$} \\
+$A$ & 0 & 1 \\
+\hline
+0 & 0 & 0 \\
+1 & 1 & 0 \\
+\end{tabular}
+\caption{K-map for $F(A,B) = (B'(A+B)+(A+B)(A+B'))B'$}
+\end{table}
+
+Only a single cell, at $A=1$, $B=0$, is populated. A lone 1-cell cannot be combined with any neighboring cell, so it is read directly as the product of its coordinate literals, giving $F = AB'$, which matches the algebraic result.
+
+\subsection*{Circuit Diagram}
+\begin{figure}[H]
+\centering
+
+
+
+
+
+\includegraphics[width=0.8\textwidth]{prob4.png}
+
+\caption{Original circuit realizing $(B'(A+B)+(A+B)(A+B'))B'$ using OR, AND, and NOT stages, and simplified circuit reduced to a single AND gate realizing $AB'$, simulated in Logisim}
+\end{figure}
+
+\subsection*{Discussion}
+Expanding the original expression term by term produces several instances of $AB'$ along with the terms $A$, $BB'$, and $AA$; since $BB' = 0$ and $AA = A$, and every surviving term is either $A$ or $AB'$, factoring out the common literal $B'$ across the whole expression collapses it to the single term $AB'$. Consequently, the four-gate original network, built from OR, AND, and NOT gates as shown in the Logisim schematic, is functionally equivalent to a single 2-input AND gate with $B$ inverted. Verifying both circuits in Logisim across all four input combinations of $A$ and $B$ confirmed that the output is 1 only when $A=1$ and $B=0$, matching $F = AB'$ in every case.
+
+\subsection*{Conclusion}
+The expression $F = (B'(A+B) + (A+B)(A+B'))B'$ was successfully reduced to $F = AB'$ using Boolean algebra, confirmed with a Karnaugh map, and validated by Logisim simulation, which showed identical outputs for the original and simplified circuits across all input combinations.
+
+\vspace{1cm}
+
+% ===================== REFERENCES =====================
+\section*{References}
+\begin{enumerate}[leftmargin=*]
+    \item M. M. Mano, \textit{Digital Design}, 5th ed. Upper Saddle River, N.J.: Pearson, 2013.
+    \item R. J. Tocci, N. S. Widmer, and G. L. Moss, \textit{Digital Systems: Principles and Applications}, 11th ed. Upper Saddle River, N.J.: Pearson, 2011.
+\end{enumerate}
+
+\end{document}
