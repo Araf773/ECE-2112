@@ -1,4 +1,4 @@
-<img width="1792" height="595" alt="image" src="https://github.com/user-attachments/assets/cb8cb3ef-09bc-408e-a78d-ce7faf4b3c86" /># Digital Techniques Sessional — Lab Report 02
+# Digital Techniques Sessional — Lab Report 02
 
 **Course No:** ECE 2112
 **Report Title:** Simplification of Boolean Expressions Using Boolean Algebra and Karnaugh Map, and Verification Using Logic Circuit Simulation
